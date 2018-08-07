@@ -2,6 +2,7 @@
     <!--То, что переводиться не будет-->
     <string name="temperature">+27 С&#176;</string>
     <string name="TAG">WeatherActivity</string>
+    <string name="TEXT">TEXT</string>
     <string name="onCreate">onCreate()</string>
     <string name="onStart">onStart()</string>
     <string name="onRestoreInstanceState">oonRestoreInstanceState()</string>
@@ -11,11 +12,14 @@
     <string name="onRestart">onRestart()</string>
     <string name="onStop">onStop()</string>
     <string name="onDestroy">onDestroy()</string>
+    <string name="Create_action">Create action</string>
 
     <!--То, что потом переведем-->
-    <string name="app_name">Weather</string>
+    <string name="app_name">Погода</string>
     <string name="weatheractivity">Жизненный цикл WeatherActivity!</string>
     <string name="city">St. Petersburg</string>
     <string name="first_start">Первый запуск!</string>
     <string name="restart">Повторный запуск!</string>
+    <string name="selection_city">Выбор города</string>
+    <string name="write_city">Напишите город</string>
 </resources>
