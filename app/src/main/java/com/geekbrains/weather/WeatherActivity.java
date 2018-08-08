@@ -1,6 +1,7 @@
 package com.geekbrains.weather;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +18,7 @@ import es.dmoral.toasty.Toasty;
 
 public class WeatherActivity extends AppCompatActivity {
 
-    private TextView textView;
+    private TextView tv_city;
     private FloatingActionButton buttonFab;
     private Boolean isPressed = false;
 
@@ -39,20 +41,22 @@ public class WeatherActivity extends AppCompatActivity {
         }
         //вызываем элемент(кнопку) по id
         buttonFab = findViewById(R.id.buttonFab);
-        textView = findViewById(R.id.tv_city);
+        tv_city = findViewById(R.id.tv_city);
 
         if(getIntent().getExtras() != null) {
             String text = getIntent().getExtras().getString(getResources().getString(R.string.TEXT)); //получаем значение строки из второй активити
-            textView.setText(text);
+            tv_city.setText(text);
         }
 
         //слушатель для нашей кнопки
         buttonFab.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                if(!isPressed){ //проверка на то, чтобы пользователь не смог запустить случайно несколько активностей
+                if(!isPressed){              //проверка на то, чтобы пользователь не смог запустить случайно несколько активностей
                     isPressed = true;
                     startNewActivity();
+                    toastAndLog(R.string.start_new_activity);
                 }
             }
         });
@@ -61,11 +65,20 @@ public class WeatherActivity extends AppCompatActivity {
         Log.d(getResources().getString(R.string.TAG), getResources().getString(R.string.onCreate));
     }
 
-
     private void startNewActivity(){
         //при старте новой активити передаем компонент старой активити
         Intent intent = new Intent(this, SecondActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+//        startActivity(intent);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) {
+            return;
+        }
+        String name = data.getStringExtra(getResources().getString(R.string.TEXT));
+        tv_city.setText(name);
+        isPressed = false;
     }
 
 //методы жизненного цикла
@@ -112,11 +125,11 @@ public class WeatherActivity extends AppCompatActivity {
         toastAndLog(R.string.onStop);
     }
 
-    @Override
-    public void onBackPressed() { //метод, который отвечает за переход назад и делает нашу кнопку снова активной
-        super.onBackPressed();
-        isPressed = false;
-    }
+//    @Override
+//    public void onBackPressed() { //метод, который отвечает за переход назад и делает нашу кнопку снова активной
+//        super.onBackPressed();
+//        isPressed = false;
+//    }
 
     @Override
     protected void onDestroy() {

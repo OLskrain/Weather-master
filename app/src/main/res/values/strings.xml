@@ -13,6 +13,7 @@
     <string name="onStop">onStop()</string>
     <string name="onDestroy">onDestroy()</string>
     <string name="Create_action">Create action</string>
+    <string name="maxLength">5</string>
 
     <!--То, что потом переведем-->
     <string name="app_name">Погода</string>
@@ -22,4 +23,7 @@
     <string name="restart">Повторный запуск!</string>
     <string name="selection_city">Выбор города</string>
     <string name="write_city">Напишите город</string>
+    <string name="start_new_activity">Запускаем новую activity!</string>
+    <string name="repeated_input">Введите значение!</string>
+    <string name="character_limit">Превышен лимит символов!</string>
 </resources>
