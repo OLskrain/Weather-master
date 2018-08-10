@@ -16,13 +16,12 @@
     <string name="maxLength">5</string>
 
     <!--То, что потом переведем-->
-    <string name="app_name">Weather</string>
-    <string name="city">St. Petersburg</string>
-    <string name="first_start">Fist start!</string>
-    <string name="restart">Restart!</string>
-    <string name="write_city">Write the city</string>
-    <string name="start_new_activity">Start a new activity!</string>
-    <string name="repeated_input">Enter the name of the city!</string>
-    <string name="character_limit">Character limit exceeded!</string>
-    <string name="nameCityKey">nameCityKey</string>
+    <string name="app_name">Погода</string>
+    <string name="city">Санкт-Петербург</string>
+    <string name="first_start">Первый запуск!</string>
+    <string name="restart">Повторный запуск!</string>
+    <string name="write_city">Напишите город</string>
+    <string name="start_new_activity">Запускаем новую activity!</string>
+    <string name="repeated_input">Введите название города!</string>
+    <string name="character_limit">Превышен лимит символов!</string>
 </resources>

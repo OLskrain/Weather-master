@@ -27,7 +27,8 @@ public class SecondActivity extends AppCompatActivity {
         et_secondActivity = findViewById(R.id.et_secondActivity);
 
         //фильт на вводимые символы.
-        /**1)НУжна доработка по ограничению кол-ва,а так же фильтра, а лучше оргаизовать запросы в бд
+        /**Задачи на будущее:
+         * 1)НУжна доработка по ограничению кол-ва,а так же фильтра, а лучше оргаизовать запросы в бд
          * 2)приделать подсказки при вводе*/
         et_secondActivity.setFilters(new InputFilter[] {
                 new InputFilter() {

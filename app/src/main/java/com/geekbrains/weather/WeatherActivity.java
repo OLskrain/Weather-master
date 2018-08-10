@@ -21,6 +21,9 @@ public class WeatherActivity extends AppCompatActivity {
     private TextView tv_city;
     private FloatingActionButton buttonFab;
     private Boolean isPressed = false;
+    private String nameCity;
+
+    private final WeatherPresenter presenter = WeatherPresenter.getInstance();
 
     //методы жизненного цикла
     @Override
@@ -39,14 +42,10 @@ public class WeatherActivity extends AppCompatActivity {
         else {
             instanceState = getResources().getString(R.string.restart);
         }
+
         //вызываем элемент(кнопку) по id
         buttonFab = findViewById(R.id.buttonFab);
         tv_city = findViewById(R.id.tv_city);
-
-        if(getIntent().getExtras() != null) {
-            String text = getIntent().getExtras().getString(getResources().getString(R.string.TEXT)); //получаем значение строки из второй активити
-            tv_city.setText(text);
-        }
 
         //слушатель для нашей кнопки
         buttonFab.setOnClickListener(new View.OnClickListener() {
@@ -69,15 +68,19 @@ public class WeatherActivity extends AppCompatActivity {
         //при старте новой активити передаем компонент старой активити
         Intent intent = new Intent(this, SecondActivity.class);
         startActivityForResult(intent, 1);
-//        startActivity(intent);
     }
+
     @Override
+    //получаем данный из второй активити
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (data == null) {
             return;
         }
-        String name = data.getStringExtra(getResources().getString(R.string.TEXT));
-        tv_city.setText(name);
+
+        nameCity = data.getStringExtra(getResources().getString(R.string.TEXT));
+        presenter.initializationNameCity(nameCity);
+
+        tv_city.setText(presenter.getNameCity());
         isPressed = false;
     }
 
@@ -89,8 +92,16 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle saveInstanceState){
-        super.onRestoreInstanceState(saveInstanceState);
+    //восстанавливаем данные после перезапуска
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(getResources().getString(R.string.nameCityKey))) {
+            nameCity = savedInstanceState.getString(getResources().getString(R.string.nameCityKey));
+
+            presenter.initializationNameCity(nameCity);
+            tv_city.setText(presenter.getNameCity());
+        }
         Toasty.success(getApplicationContext(), getResources().getString(R.string.restart) + " - " + getResources().getString(R.string.onRestoreInstanceState), Toast.LENGTH_SHORT).show();
         Log.d(getResources().getString(R.string.TAG), getResources().getString(R.string.onRestoreInstanceState));
     }
@@ -102,9 +113,12 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle saveInstanceState){
-        super.onSaveInstanceState(saveInstanceState);
-       toastAndLog(R.string.onSaveInstanceState);
+    //сохраняем данные перед перезапуском
+    protected void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(getResources().getString(R.string.nameCityKey), presenter.getNameCity());
+        toastAndLog(R.string.onSaveInstanceState);
+        Log.d(getResources().getString(R.string.TAG), getResources().getString(R.string.onSaveInstanceState));
     }
 
     @Override
@@ -124,12 +138,6 @@ public class WeatherActivity extends AppCompatActivity {
         super.onStop();
         toastAndLog(R.string.onStop);
     }
-
-//    @Override
-//    public void onBackPressed() { //метод, который отвечает за переход назад и делает нашу кнопку снова активной
-//        super.onBackPressed();
-//        isPressed = false;
-//    }
 
     @Override
     protected void onDestroy() {
