@@ -11,12 +11,12 @@
 
     <!--здесь мы создали свой стиль, где указали что отключили системный актив бар и поставили свой и прописали все это
     все в манивесте. тогда нам не надо к нему обрашаться в коде основного класса-->
-    <style name="NoActionBar" parent="AppTheme">
+    <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="MyTheme" parent="NoActionBar">
+    <style name="AppTheme.NoActionBar.MyTheme">
         <item name="android:textColor">@color/colorText</item>
         <item name="android:textColorHint">@color/colorText</item>
         <item name="android:textStyle">bold</item>
